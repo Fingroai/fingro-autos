@@ -1,0 +1,112 @@
+# Checklist de Features — Fingro Autos
+
+
+## 2. Formulario de Solicitud (/solicitud)
+
+
+
+
+
+## 3. Panel Usuario (/panel)
+
+### Autenticación y acceso
+- [ ] Integrar Supabase Auth (magic link o email) al enviar solicitud
+- [ ] Guardar `user_id` en la tabla solicitudes
+- [ ] Devolver session/token y mantener sesión iniciada
+- [ ] Proteger ruta `/panel` con middleware Next.js y políticas RLS
+
+### Vista de Solicitudes
+- [ ] Solicitud: estado, Resumen
+- [ ] Indicador de documentos incompletos, poder subir documentos
+- [ ] Botón “Ver ofertas” si hay propuestas disponibles y panel de ofertas
+
+### Detalle de Ofertas
+- [ ] Tabla: Banco, Monto, Tasa, Plazo, Comentarios
+- [ ] Botón “Aceptar oferta” con modal de confirmación
+- [ ] Copy modal: “¿Aceptar oferta de [Banco] al X% de interés?”
+
+### Notificaciones In‑App
+- [ ] Snackbar o toast al enviar y aceptar oferta
+- [ ] Registro de emails enviados en sección historial
+
+### Diseño y UX
+- [ ] Layout mobile-first con sidebar/menu hamburguesa y cabecera informativa
+- [ ] Tarjeta resumen de la solicitud: estado, monto a financiar, plazo y documentos
+- [ ] Sección de datos de solicitud editable (botón “Editar solicitud”)
+- [ ] Lista de ofertas: tarjetas (banco, tasa, monto, plazo) con botón “Ver detalles”
+- [ ] Modal de detalles de oferta: desglose cuotas, RCI, DTI y acción “Aceptar oferta”
+- [ ] Indicadores clave: cuota estimada, RCI y DTI para cada oferta
+- [ ] Componente de notificaciones in-app / toasts al aceptar o actualizar ofertas
+- [ ] Caso vacío: mostrar “No hay ofertas aún” 
+- [ ] Footer con enlaces de ayuda y contacto
+
+## 4. Onboarding Banco (/banco/onboarding)
+
+### Registro y Configuración
+- [ ] Formulario de registro: Nombre de la entidad, NIT, Correo, Password, logo, cuenta de cliente, correos de analistas invitados
+- [ ] Validación de contraseña (mínimo 8 caracteres, letras y números)
+- [ ] Configuración de filtros: tipo de carro (usado/nuevo), rango de monto, plazo, RCI máximo
+- [ ] Copy: título “Regístrate como banco”, descripción de beneficios
+
+## 5. Panel Banco (/banco)
+
+### Solicitudes Coincidentes
+- [ ] Tabla de solicitudes: muestre toda la información menos datos de contacto (telefono/correo)
+- [ ] Filtros rápidos y búsqueda
+- [ ] Botón “Enviar oferta” abre modal
+
+### Modal de Oferta
+- [ ] Inputs: Monto, Tasa de interés, Plazo, Comentarios
+- [ ] Campo dinámico para documentos adicionales: el banco escribe el nombre del documento requerido y genera un campo de upload para el usuario
+- [ ] Copy: “Envía tu mejor oferta”
+- [ ] Botón “Confirmar” (bg #26B073)
+
+### Indicadores KPI
+- [ ] Cards: total solicitudes recibidas, % respondidas, % aceptadas, tiempo promedio de respuesta
+
+## 6. Dashboard Admin (/control)
+
+### KPIs y Gráficos
+- [ ] Gráfica de barras: solicitudes vs aceptadas por semana
+- [ ] Gráfico de pastel: distribución por tipo de vehículo
+- [ ] KPI cards: totales y promedios (CAC, tiempo respuesta)
+- [ ] Tabla de logs de actividad con filtros (usuario/banco)
+
+## 7. Emails (Resend)
+
+### Plantillas y Copy
+- [ ] “Solicitud recibida”: Subject “Recibimos tu solicitud” + CTA “Ir a mi panel”
+- [ ] “Tienes X ofertas”: Subject “Tienes nuevas ofertas” + CTA “Ver mis ofertas”
+- [ ] “Oferta enviada”: Subject “Oferta enviada al usuario”
+- [ ] “Oferta aceptada”: Subject “¡Oferta aceptada!” + CTA “Ver detalles”
+- [ ] “Nueva solicitud para banco”: Subject “Nueva solicitud disponible” + CTA “Revisar solicitudes”
+
+### Estilo Email
+- [ ] Layout responsivo: header con logo, footer con datos de contacto
+- [ ] Botones inline estilizados con la paleta corporativa
+
+## 8. Integración Técnica
+
+### Supabase
+- [ ] Auth con email/magic link
+- [ ] Políticas RLS implementadas y validadas
+- [ ] Clientes en lib/supabaseClient.ts
+
+### API Next.js
+- [ ] POST /api/solicitudes: crea solicitud, envía email usuario y notifica bancos
+- [ ] POST /api/ofertas: crea oferta, envía email banco y notifica usuario
+- [ ] PATCH /api/ofertas/[id]/aceptar: marca oferta, envía email confirmación
+
+### Resend
+- [ ] Cliente configurado con API key en env
+- [ ] Funciones utilitarias para envíos con plantillas definidas
+
+## 9. Deploy y QA
+
+### Vercel
+- [ ] Configurar variables de entorno en Vercel
+- [ ] Probar builds y previews en cada PR
+
+### Pruebas
+- [ ] Test e2e de flujos clave: solicitud → oferta → aceptación
+- [ ] Validación UI responsive y permisos RLS
