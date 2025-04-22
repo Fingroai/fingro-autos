@@ -2,8 +2,7 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  // Configuración simplificada para deploy efectivo
-  output: 'standalone',  // Optimizado para producción
+  // Configuración simplificada al máximo para despliegue en Vercel
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -12,8 +11,9 @@ const nextConfig = {
   },
   images: {
     domains: ['images.unsplash.com', 'reellmxtfskobtmpdttc.supabase.co'],
+    unoptimized: true, // Simplifica manejo de imágenes
   },
-  // Se eliminó la sección experimental para evitar advertencias
+  // Se eliminó 'output: standalone' para mayor compatibilidad
   poweredByHeader: false, // Mejora de seguridad
 };
 
