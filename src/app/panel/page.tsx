@@ -1,8 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { supabase } from "../../../lib/supabaseClient";
 
-export default function PanelPage() {
+// UX/UI enhancements
+
+// Componente panel con la lógica principal
+function PanelContent() {
+  const searchParams = useSearchParams();
+  const idParam = searchParams.get("id");
+  
   const [solicitud, setSolicitud] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showSummary, setShowSummary] = useState(false);
@@ -11,16 +18,11 @@ export default function PanelPage() {
   const [selectedOffer, setSelectedOffer] = useState<any>(null);
   const [acceptingOffer, setAcceptingOffer] = useState(false);
   const [uploadedDocs, setUploadedDocs] = useState<Record<string, Record<string,string>>>({});
-  const [idParam, setIdParam] = useState<string | null>(null);
-
-  // Obtener id desde la URL en cliente
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setIdParam(params.get("id"));
-  }, []);
 
   // Función para obtener el nombre del banco desde la relación
   const getBancoNombre = (of: any) => Array.isArray(of.bancos) ? of.bancos[0]?.nombre : of.bancos?.nombre;
+
+
 
   useEffect(() => {
     const init = async () => {
@@ -296,5 +298,18 @@ export default function PanelPage() {
         </div>
       )}
     </main>
+  );
+}
+
+// Componente principal envuelto en Suspense para corregir el error de useSearchParams
+export default function PanelPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-16 h-16 border-4 border-gray-300 border-t-[#26B073] rounded-full animate-spin"></div>
+      </div>
+    }>
+      <PanelContent />
+    </Suspense>
   );
 }

@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fingro Autos 🚗
 
-## Getting Started
+Plataforma de financiamiento vehicular 100% digital que conecta usuarios buscando créditos de auto con bancos y financieras.
 
-First, run the development server:
+## Características Principales
+
+- **Solicitudes de crédito digitales**: Proceso 100% online desde la aplicación hasta la firma
+- **Marketplace de ofertas**: Múltiples bancos pueden enviar ofertas competitivas al usuario
+- **Panel de usuario**: Seguimiento del estado de solicitudes y ofertas
+- **Dashboard para bancos**: Análisis de solicitudes y gestión de ofertas
+- **Founder Cockpit**: Panel administrativo para métricas y operaciones
+
+## Tecnologías
+
+- **Frontend**: Next.js 15 con App Router
+- **Styling**: TailwindCSS
+- **Database**: Supabase (PostgreSQL)
+- **Auth**: Supabase Auth
+- **Storage**: Supabase Storage
+- **Email**: Resend
+
+## Instalación
 
 ```bash
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables de Entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Crea un archivo `.env.local` con las siguientes variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+# Supabase (requerido)
+NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-clave-anon
+SUPABASE_SERVICE_ROLE_KEY=tu-clave-service-role
 
-## Learn More
+# App URL (para auth callbacks)
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+# Email (opcional)
+RESEND_API_KEY=tu-api-key
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estructura del Proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/src/app` - Rutas y componentes (Next.js App Router)
+- `/src/app/api` - API endpoints
+- `/src/app/banco` - Panel para bancos 
+- `/src/app/control` - Dashboard administrativo (Founder Cockpit)
+- `/src/app/panel` - Panel de usuario
+- `/lib` - Utilidades y configuración Supabase
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Vercel
+Recomendado para despliegue rápido y sencillo:
+1. Conecta tu repositorio a Vercel
+2. Configura las variables de entorno
+3. Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Self-hosted
+```bash
+npm run build
+npm start
+```
