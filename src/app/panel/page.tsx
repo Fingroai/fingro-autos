@@ -1,10 +1,6 @@
 "use client";
-export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import { supabase } from "../../../lib/supabaseClient";
-
-// UX/UI enhancements
 
 export default function PanelPage() {
   const [solicitud, setSolicitud] = useState<any>(null);
@@ -15,12 +11,16 @@ export default function PanelPage() {
   const [selectedOffer, setSelectedOffer] = useState<any>(null);
   const [acceptingOffer, setAcceptingOffer] = useState(false);
   const [uploadedDocs, setUploadedDocs] = useState<Record<string, Record<string,string>>>({});
+  const [idParam, setIdParam] = useState<string | null>(null);
+
+  // Obtener id desde la URL en cliente
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setIdParam(params.get("id"));
+  }, []);
 
   // Función para obtener el nombre del banco desde la relación
   const getBancoNombre = (of: any) => Array.isArray(of.bancos) ? of.bancos[0]?.nombre : of.bancos?.nombre;
-
-  const searchParams = useSearchParams();
-  const idParam = searchParams.get("id");
 
   useEffect(() => {
     const init = async () => {
