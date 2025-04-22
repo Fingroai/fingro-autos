@@ -1,6 +1,16 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../../../lib/supabaseAdmin';
 
+// Tipo para datos agrupados por mes
+interface MesData {
+  mes: string;
+  solicitudes: number;
+  ofertas: number;
+  aceptadas: number;
+  desembolsadas: number;
+  comision: number;
+}
+
 // Devuelve datos históricos y distribución real para dashboards
 export async function GET() {
   try {
@@ -19,7 +29,7 @@ export async function GET() {
       const d = new Date(dateStr);
       return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}`;
     }
-    const meses = {};
+    const meses: Record<string, MesData> = {};
     solicitudes.forEach(s => {
       const mes = getMonth(s.created_at);
       if (!meses[mes]) meses[mes] = { mes, solicitudes: 0, ofertas: 0, aceptadas: 0, desembolsadas: 0, comision: 0 };
