@@ -2,7 +2,8 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  // Configuración simplificada al máximo para despliegue en Vercel
+  // Configuración optimizada para Next.js app con API routes en Vercel
+  // No usamos 'export' porque rompería las APIs y autenticación server-side
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -11,10 +12,10 @@ const nextConfig = {
   },
   images: {
     domains: ['images.unsplash.com', 'reellmxtfskobtmpdttc.supabase.co'],
-    unoptimized: true, // Simplifica manejo de imágenes
   },
-  // Se eliminó 'output: standalone' para mayor compatibilidad
-  poweredByHeader: false, // Mejora de seguridad
+  poweredByHeader: false,
+  swcMinify: true,     // Minificación optimizada
+  reactStrictMode: true, // Mejores prácticas de React
 };
 
 export default nextConfig;
