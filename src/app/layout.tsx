@@ -15,8 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Fingro Autos | Financiamiento vehicular digital",
   description: "Plataforma de financiamiento automotriz 100% digital que conecta compradores con las mejores ofertas bancarias",
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
+};
+
+// Separamos viewport según recomendación de Next.js
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
