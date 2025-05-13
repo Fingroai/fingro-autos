@@ -35,16 +35,23 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <link rel="icon" href="/favicon.ico" />
-        {/* Google Tag (gtag.js) */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-16940336740" />
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16940336740');
-          `}
-        </Script>
+        {/* Google Tag (gtag.js) - Implementado con strategy="afterInteractive" para mejor detección */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16940336740"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16940336740');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
